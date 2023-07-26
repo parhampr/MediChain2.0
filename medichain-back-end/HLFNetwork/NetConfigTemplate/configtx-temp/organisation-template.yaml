@@ -1,0 +1,17 @@
+- ${orgID}
+        Name: ${org}MSP
+        ID: ${org}MSP
+        MSPDir: ../organizations/peerOrganizations/${orgAdd}/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('${org}MSP.admin', '${org}MSP.peer', '${org}MSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('${org}MSP.admin', '${org}MSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('${org}MSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('${org}MSP.peer')"

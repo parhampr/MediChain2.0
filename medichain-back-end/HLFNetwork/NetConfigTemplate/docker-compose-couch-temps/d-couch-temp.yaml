@@ -1,0 +1,7 @@
+version: '2'
+networks:
+  ${networknick}:
+    name: ${networkname}
+
+services:
+${couchdbservices}

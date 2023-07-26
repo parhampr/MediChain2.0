@@ -1,0 +1,17 @@
+ca_${org}:
+  image: hyperledger/fabric-ca:latest
+  environment:
+    - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+    - FABRIC_CA_SERVER_CA_NAME=ca-${org}
+    - FABRIC_CA_SERVER_TLS_ENABLED=true
+    - FABRIC_CA_SERVER_PORT=${caport}
+    - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:1${caport}
+  ports:
+    - "${caport}:${caport}"
+    - "1${caport}:1${caport}"
+  command: sh -c 'fabric-ca-server start -b ${admin}:${adminpw} -d'
+  volumes:
+    - ../organizations/fabric-ca/${org}:/etc/hyperledger/fabric-ca-server
+  container_name: ca_${org}
+  networks:
+    - ${networknick}

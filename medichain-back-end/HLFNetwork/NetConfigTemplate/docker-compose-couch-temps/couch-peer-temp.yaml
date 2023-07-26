@@ -1,0 +1,19 @@
+couchdb${index}:
+  container_name: couchdb${index}
+  image: couchdb:3.1.1
+  environment:
+    - COUCHDB_USER=${admin}
+    - COUCHDB_PASSWORD=${adminpw}
+  ports:
+    - "${couchport}:5984"
+  networks:
+    - ${networknick}
+
+peer0.${orgAdd}:
+  environment:
+    - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb${index}:5984
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=${admin}
+    - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=${adminpw}
+  depends_on:
+    - couchdb${index}
