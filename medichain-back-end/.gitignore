@@ -52,9 +52,6 @@ typings/
 # TODO: Make a example env
 .env
 
-# bin config files for docker imports from docker images
-bin
-
 app/wallet
 .vscode
 

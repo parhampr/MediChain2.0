@@ -7,7 +7,7 @@ Install all the necessary softwares and tools. Please refer to [Installations](i
 Install all the node packages in medichain-back-end and medichain-front-end. Run the below commands from the main folder
 
 - `npm i --prefix medichain-front-end`
-- `npm i --prefix medichain-backend-end`
+- `npm i --prefix medichain-back-end`
 
 ## Step 3
 
