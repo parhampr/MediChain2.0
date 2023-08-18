@@ -1,9 +1,8 @@
 import { AlternateEmail, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, InputAdornment, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
-import { signupRoute } from "../common/contants/routesConstants";
-import { ADMIN, DOCTOR, PATIENT, SUPER_ADMIN } from "../common/contants/userRoles";
-import { allLoginTypes } from "../common/utils/formSelectoptions";
+import { PUBLIC_ROUTES } from "../common/constants/routesConstants";
+import { ROLE, allLoginTypes } from "../common/constants/userProperties";
 
 export const loginFields = [
   {
@@ -63,20 +62,20 @@ export const loginFields = [
   },
 ];
 
-export const getCurrentLoginType = (type) => allLoginTypes.find((item) => item.type === type);
+export const getCurrentLoginType = (currentType) => allLoginTypes.find((item) => item.type === currentType);
 
 export const otherLoginTypes = (currentType) => allLoginTypes.filter((login) => login.type !== currentType);
 
-export const helperTextValue = (type) => {
-  switch (type) {
-    case SUPER_ADMIN:
+export const helperTextValue = (currentType) => {
+  switch (currentType) {
+    case ROLE.SUPER_ADMIN:
       return "Please contact the blockchain developer if you have forgotten your password";
-    case ADMIN:
+    case ROLE.ADMIN:
       return "Please contact the superuser head of network if you have forgotten your password";
-    case PATIENT:
-    case DOCTOR:
+    case ROLE.PATIENT:
+    case ROLE.DOCTOR:
       return (
-        <Link to={signupRoute} style={{ color: "inherit" }}>
+        <Link to={PUBLIC_ROUTES.signupRoute} style={{ color: "inherit" }}>
           <b>Not signed in yet? Click here to sign up now</b>
         </Link>
       );

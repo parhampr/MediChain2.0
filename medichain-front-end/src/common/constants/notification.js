@@ -3,4 +3,4 @@ export const ICON_HEIGHT = "40px";
 export const SUCCESS = "success";
 export const ERROR = "error";
 export const INFO = "info";
-export const MAXTIME = "8000";
+export const MAX_TIME = "8000";

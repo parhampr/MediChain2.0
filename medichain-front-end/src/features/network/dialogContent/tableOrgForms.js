@@ -18,7 +18,7 @@ import { Fragment, useState } from "react";
 import { Close } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../../notifications/notificationSlice";
-import { ERROR, INFO, SUCCESS } from "../../../common/contants/notification";
+import { ERROR, INFO, SUCCESS } from "../../../common/constants/notification";
 import { useParams } from "react-router-dom";
 import {
   useCreateOrganizationMutation,

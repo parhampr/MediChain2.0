@@ -5,6 +5,9 @@ if [ "$EUID" -ne 0 ]
 fi
 service docker --full-restart
 
+# Update the clock
+ntpdate time.windows.com
+
 # install a global package
 package='concurrently'
 if [ `npm list -g | grep -c $package` -eq 0 ]; then

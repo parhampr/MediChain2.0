@@ -39,8 +39,8 @@ export const createOrganizationConfig = [
           id: "nameId",
           type: "text",
           label: "Hospital ID *",
-          placeholder: "Xenos",
-          helperText: `A valid ID contains atleast 5 characters with no spaces, no special characters in the beginning or end. Allowed special characters include 'underscore' and 'dot'`,
+          placeholder: "Xenons",
+          helperText: `A valid ID contains at least 5 characters with no spaces, no special characters in the beginning or end. Allowed special characters include 'underscore' and 'dot'`,
           autoComplete: "id",
           InputProps: {
             startAdornment: (
@@ -64,7 +64,7 @@ export const createOrganizationConfig = [
           id: "fullName",
           type: "text",
           label: "Hospital Organization Name *",
-          placeholder: "Xenos Medical Center",
+          placeholder: "Xenons Medical Center",
           helperText: `A valid hospital name contains only alphabets and spaces`,
           autoComplete: "id",
           InputProps: {
@@ -90,7 +90,7 @@ export const createOrganizationConfig = [
           type: "text",
           label: "Admin Username/ID *",
           placeholder: "Admin",
-          helperText: `A valid username contains atleast 5 characters with no spaces, no special characters in the beginning or end. Allowed special characters include 'underscore' and 'dot'`,
+          helperText: `A valid username contains at least 5 characters with no spaces, no special characters in the beginning or end. Allowed special characters include 'underscore' and 'dot'`,
           autoComplete: "username",
           InputProps: {
             startAdornment: (
@@ -115,7 +115,7 @@ export const createOrganizationConfig = [
           type: "password",
           label: "Admin Password *",
           placeholder: "Type your password here...",
-          helperText: `A valid username contains atleast 8 characters with 1 uppercase character, 1 lowercase character, 1 special character and 1 digit with no restrictions on dot character`,
+          helperText: `A valid username contains at least 8 characters with 1 uppercase character, 1 lowercase character, 1 special character and 1 digit with no restrictions on dot character`,
           autoComplete: "new-password",
           InputProps: {
             startAdornment: (
@@ -143,7 +143,7 @@ export const createOrganizationConfig = [
     id: "locationDetails",
     title: "Hospital Location Details",
     description:
-      "The hospital location details helps determine the valid permission control over the records for it's particular doctors and patients while exchangin records between hospitals",
+      "The hospital location details helps determine the valid permission control over the records for it's particular doctors and patients while exchanging records between hospitals",
     borderRadius: (open) => (open ? "12px 12px 0 0" : "0 0 12px 12px"),
     icon: <ExpandCircleDown sx={{ color: "text.primary" }} />,
     defaultOpen: true,

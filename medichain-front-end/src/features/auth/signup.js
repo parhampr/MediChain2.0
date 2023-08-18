@@ -1,21 +1,33 @@
 import { ArrowBack } from "@mui/icons-material";
-import { AppBar, Box, Button, ButtonGroup, Container, Dialog, IconButton, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Dialog,
+  IconButton,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useStylesSignupClass } from "../../classes/auth/signupClass";
-import { DOCTOR, PATIENT } from "../../common/contants/userRoles";
+import { ROLE } from "../../common/constants/userProperties";
 import { AppThemeMode, Transition } from "../../common/utils/stylesFunction";
 import { AppForm } from "../../components/generalFormHelper";
 import { errorConfig, signUpFormConfig } from "../../config/signupConfig";
-import { selectSelectedSignupType, setSeletedSignupType } from "./authSlice";
+import { selectSelectedSignupType, setSelectedLoginType, setSelectedSignupType } from "./authSlice";
+import { PUBLIC_ROUTES } from "../../common/constants/routesConstants";
 
 const SignUpFormWithHeader = () => {
   const signupType = useSelector(selectSelectedSignupType);
-  const classess = useStylesSignupClass();
+  const classes = useStylesSignupClass();
 
   return (
     <AppForm accordions={signUpFormConfig(signupType)} errorContent={errorConfig}>
-      <Typography component="span" variant="h6" className={classess.nestedTypography}>
+      <Typography component="span" variant="h6" className={classes.nestedTypography}>
         {/*  TODO
             {user && (
               <span>
@@ -47,10 +59,15 @@ const ToolBarContent = () => {
   const dispatch = useDispatch();
   const signUpType = useSelector(selectSelectedSignupType);
 
+  const changeType = (type) => {
+    dispatch(setSelectedSignupType(type));
+    dispatch(setSelectedLoginType(type));
+  };
+
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flex: 1, mx: 1 }}>
       <Typography variant="h6" component="div">
-        New {signUpType === PATIENT ? "Patient" : "Doctor"} Signup
+        New {signUpType === ROLE.PATIENT ? "Patient" : "Doctor"} Signup
       </Typography>
       <ButtonGroup
         size="small"
@@ -59,11 +76,11 @@ const ToolBarContent = () => {
         disableElevation
         sx={{ "& button": { textTransform: "capitalize" } }}
       >
-        {[PATIENT, DOCTOR].map((button, i) => (
+        {[ROLE.PATIENT, ROLE.DOCTOR].map((button, i) => (
           <Button
             key={i}
             variant={signUpType === button ? "contained" : "outlined"}
-            onClick={() => dispatch(setSeletedSignupType(button))}
+            onClick={() => changeType(button)}
             title={`Switch to ${button} type`}
           >
             <b>{button}</b>
@@ -77,8 +94,8 @@ const ToolBarContent = () => {
 // TODO SIGNUP STILL
 export const SignUp = () => {
   const navigate = useNavigate();
-  const classess = useStylesSignupClass();
-  const closeDialogBox = () => navigate("/login");
+  const classes = useStylesSignupClass();
+  const closeDialogBox = () => navigate(PUBLIC_ROUTES.loginRoute);
 
   return (
     <Dialog
@@ -88,22 +105,24 @@ export const SignUp = () => {
       TransitionComponent={Transition}
       PaperProps={{
         sx: {
-          bgcolor: "background.default",
+          backgroundColor: "background.default",
           backgroundImage: "none",
         },
       }}
     >
-      <AppBar className={classess.appBarStyle}>
+      <AppBar className={classes.appBarStyle}>
         <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={closeDialogBox} aria-label="close">
-            <ArrowBack />
-          </IconButton>
+          <Tooltip title={"Go to login"}>
+            <IconButton edge="start" color="inherit" onClick={closeDialogBox} aria-label="close">
+              <ArrowBack />
+            </IconButton>
+          </Tooltip>
           <ToolBarContent />
           <AppThemeMode edge="end" color="primary" />
         </Toolbar>
       </AppBar>
       <Container>
-        <Box component={"div"} className={classess.containerBox}>
+        <Box component={"div"} className={classes.containerBox}>
           <SignUpFormWithHeader />
         </Box>
       </Container>

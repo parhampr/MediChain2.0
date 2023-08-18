@@ -47,10 +47,7 @@ const FormSelectField = ({ error, field, resetError }) => {
   const [value, setValue] = useState(field.extraArgs.defaultValue);
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
-      setOptions(data);
-    }
+    if (data) setOptions(data);
   }, [query, data]);
 
   return (
@@ -107,7 +104,7 @@ const FormCustomAutocompleteFields = ({ errorA1, errorA2, field }) => {
   const [stateVal, setStateVal] = useState({ [field.autoFields[0].uid]: "", [field.autoFields[1].uid]: "" });
   const onChangeValueFn = (uid, value) => setStateVal((prev) => ({ ...prev, [uid]: value }));
 
-  // TOOD ERROR
+  // TODO ERROR
   return field.autoFields.map((autoField, i) => (
     <Grid key={i} {...autoField.gridProps}>
       <Autocomplete
@@ -137,7 +134,7 @@ const AccordionItem = ({ accordion, isOpen, onClickToggle, accordionError, error
     expanded={isOpen}
     onChange={() => onClickToggle(accordion.id)}
     sx={{
-      bgcolor: "primary.sectionContainer",
+      backgroundColor: "primary.sectionContainer",
       backgroundImage: "none",
       boxShadow: "none",
     }}

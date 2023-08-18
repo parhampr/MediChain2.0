@@ -1,11 +1,10 @@
 import { LoadingButton } from "@mui/lab";
-import { Avatar, Box, Button, Container, Divider, Grid, Tooltip, Typography } from "@mui/material";
+import { Avatar, Box, Button, Divider, Grid, Tooltip, Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useStylesLoginClass } from "../../classes/auth/loginClass";
-import { ERROR, INFO, SUCCESS } from "../../common/contants/notification";
-import { networkDashboard } from "../../common/contants/routesConstants";
+import { ERROR, INFO, SUCCESS } from "../../common/constants/notification";
 import { AlertErrorComponent, AppThemeMode } from "../../common/utils/stylesFunction";
 import { FormTextField } from "../../components/generalFormHelper";
 import { getCurrentLoginType, otherLoginTypes, helperTextValue, loginFields } from "../../config/loginConfig";
@@ -14,7 +13,9 @@ import logo_dark from "../../static/images/Logo_dark.png";
 import { setNotification } from "../notifications/notificationSlice";
 import { selectIsThemeDark } from "../theme/themeSlice";
 import { useLoginMutation } from "./authApiSlice";
-import { selectSelectedLoginType, setSeletedLoginType, setSeletedSignupType } from "./authSlice";
+import { selectSelectedLoginType, setSelectedLoginType, setSelectedSignupType } from "./authSlice";
+import logoBg from "../../static/images/logoBg.jpg";
+import { USER_PROPS } from "../../common/constants/userProperties";
 
 const LoginFieldData = ({ type }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const LoginFieldData = ({ type }) => {
     try {
       await login({ userId: username, password, type }).unwrap();
       dispatch(setNotification(`Welcome, ${username}`, "You have been logged in successfully", SUCCESS));
-      navigate(state?.from?.pathname ?? networkDashboard);
+      navigate(state?.from?.pathname ?? USER_PROPS[type].linkToHome);
     } catch (err) {
       if (!err?.data) {
         dispatch(setNotification("Connection Error", "There was a problem connecting to the server.", ERROR));
@@ -72,8 +73,8 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const onTypeChanged = (value) => {
-    dispatch(setSeletedLoginType(value));
-    dispatch(setSeletedSignupType(value));
+    dispatch(setSelectedLoginType(value));
+    dispatch(setSelectedSignupType(value));
   };
 
   const loginTypesRender = otherLoginTypes(type).map((item, i) => (
@@ -89,9 +90,10 @@ export const Login = () => {
   ));
 
   return (
-    <Container component="main" maxWidth="xl" sx={{ flex: 1 }}>
-      <Box component={"section"} className={classes.containerDiv}>
-        <Box component={"div"} className={classes.sectionContainerBox}>
+    // <Container component="main" maxWidth="xl" sx={{ flex: 1 }}>
+    <Box component={"div"} className={classes.bodyContainer}>
+      <Box component={"section"} className={`${classes.containerDiv} ${classes.sectionLeft}`}>
+        <Box component={"div"} className={classes.loginContainerBox}>
           {/* SECTION 1 - HEADER */}
           <Box component={"div"}>
             <Typography sx={{ textAlign: "center" }}>
@@ -116,6 +118,10 @@ export const Login = () => {
           <AppThemeMode color="primary" />
         </Box>
       </Box>
-    </Container>
+      <Box component={"section"} className={`${classes.containerDiv} ${classes.sectionRight}`}>
+        <img src={logoBg} width={"50px"} height={"50px"} />
+      </Box>
+    </Box>
+    // </Container>
   );
 };

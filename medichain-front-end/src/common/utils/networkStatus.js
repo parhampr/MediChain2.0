@@ -9,7 +9,7 @@ import {
   useStopNetworkMutation,
 } from "../../features/network/networkApiSlice";
 import { setNotification } from "../../features/notifications/notificationSlice";
-import { ERROR, SUCCESS } from "../contants/notification";
+import { ERROR, SUCCESS } from "../constants/notification";
 import { selectAllOrganizations, selectNetworkById } from "../../features/network/networkSlice";
 
 export const NetworkStatusLoading = ({ id }) => {

@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useStylesNetworkDashboardClass } from "../../classes/network/networkDashboard";
-import { ERROR, INFO, SUCCESS } from "../../common/contants/notification";
-import { networkDashboardOrganizationPage } from "../../common/contants/routesConstants";
+import { ERROR, INFO, SUCCESS } from "../../common/constants/notification";
+import { SUPER_ADMIN_ROUTES } from "../../common/constants/routesConstants";
 import { NetworkStatusLoading } from "../../common/utils/networkStatus";
 import {
   SuperAdminHeadWrapper,
@@ -21,12 +21,12 @@ import { useCreateNetworkMutation, useFetchNetworkQuery } from "./networkApiSlic
 import { selectAllNetworks, selectAllOrganizations } from "./networkSlice";
 import { AppForm } from "../../components/generalFormHelper";
 
-const AccordionTableItems = ({ network, organizations, classess }) => {
+const AccordionTableItems = ({ network, organizations, classes }) => {
   const [panelOpened, setPanelOpened] = useState("network-details");
   return tablesAccordionConfig(network, organizations).map((item, i) => (
     <Accordion
       key={i}
-      className={classess.accordion}
+      className={classes.accordion}
       expanded={panelOpened === item.id}
       onClick={(e) => {
         e.stopPropagation();
@@ -34,7 +34,7 @@ const AccordionTableItems = ({ network, organizations, classess }) => {
       }}
     >
       <AccordionSummary
-        className={classess.accordionSummary}
+        className={classes.accordionSummary}
         expandIcon={<ExpandCircleDown sx={{ color: "text.primary" }} />}
         aria-controls={`${item.id}-bh-content`}
         id={`${item.id}-bh-header`}
@@ -54,19 +54,19 @@ const AccordionTableItems = ({ network, organizations, classess }) => {
 
 const NetworkGridItem = ({ network }) => {
   const organizations = useSelector(selectAllOrganizations).filter(({ _id }) => network.associatedOrgID.includes(_id));
-  const classess = useStylesNetworkDashboardClass();
+  const classes = useStylesNetworkDashboardClass();
   const nav = useNavigate();
   return (
     <Grid item xs={12} md={8}>
       <Box
         component={"div"}
-        className={classess.cardBoxContainer}
-        onClick={() => nav(networkDashboardOrganizationPage(network._id))}
+        className={classes.cardBoxContainer}
+        onClick={() => nav(SUPER_ADMIN_ROUTES.networkDashboardOrganizationPage(network._id))}
       >
-        <div className={classess.goNextArrow}>
-          <ArrowForward className={classess.goArrow} fontSize={"22px"} sx={{ color: "text.reverse" }} />
+        <div className={classes.goNextArrow}>
+          <ArrowForward className={classes.goArrow} fontSize={"22px"} sx={{ color: "text.reverse" }} />
         </div>
-        <Box component={"div"} className={classess.cardBoxHeaderContainer}>
+        <Box component={"div"} className={classes.cardBoxHeaderContainer}>
           <Box>
             <Typography fontWeight={600}>{network.name} - HLF Network</Typography>
             <Typography fontWeight={500} component="small" variant="small" sx={{ color: "text.secondary" }}>
@@ -76,7 +76,7 @@ const NetworkGridItem = ({ network }) => {
           <NetworkStatusLoading id={network._id} />
         </Box>
         <Box component={"div"} sx={{ my: 2 }}>
-          <AccordionTableItems network={network} organizations={organizations} classess={classess} />
+          <AccordionTableItems network={network} organizations={organizations} classes={classes} />
         </Box>
       </Box>
     </Grid>
@@ -93,7 +93,7 @@ const NewNetworkForm = ({ apiRefetch }) => {
       const response = await createNetwork(requestData).unwrap();
       dispatch(
         setNotification(
-          `Network Created Succesfully`,
+          `Network Created Successfully`,
           response?.data?.message ?? "New network was successfully created",
           SUCCESS
         )

@@ -49,7 +49,6 @@ export const handleLoginForUser = async (req, res) => {
 };
 
 /**
- *
  * @param {cookies} req
  * @param {*} res
  * @returns {{accessToken}}

@@ -24,7 +24,7 @@ import { Fragment, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStylesOrganizationTableClass } from "../../classes/network/organizationTable";
-import { networkDashboard } from "../../common/contants/routesConstants";
+import { networkDashboard } from "../../common/constants/routesConstants";
 import { NetworkStatusLoading } from "../../common/utils/networkStatus";
 import {
   SuperAdminHeadWrapper,
@@ -132,7 +132,7 @@ const OrganizationTableToolBar = ({ selected, setSelected }) => {
         minHeight: "78px !important",
         borderRadius: "12px 12px 0 0",
         ...(numSelected > 0 && {
-          bgcolor: "primary.secondarySectionContainer",
+          backgroundColor: "primary.secondarySectionContainer",
         }),
       }}
     >
@@ -210,7 +210,7 @@ const OrganizationTableHead = ({ onSelectAllClick, order, orderBy, numSelected, 
 
 const OrganizationTable = () => {
   const { netId } = useParams();
-  const classess = useStylesOrganizationTableClass();
+  const classes = useStylesOrganizationTableClass();
   const network = useSelector((state) => selectNetworkById(state, netId ?? "0"));
   const orgRows = useSelector(selectAllOrganizations).filter(
     ({ _id }) => network?.associatedOrgID?.includes(_id) ?? false
@@ -277,7 +277,7 @@ const OrganizationTable = () => {
   return (
     <>
       <OrganizationTableToolBar selected={selected} />
-      <TableContainer className={classess.outermostTableContainer}>
+      <TableContainer className={classes.outermostTableContainer}>
         <Table sx={{ minWidth: 650 }} aria-labelledby="hospital organizations">
           <OrganizationTableHead
             numSelected={selected.length}
@@ -300,7 +300,7 @@ const OrganizationTable = () => {
                     aria-checked={isItemSelected}
                     tabIndex={-1}
                     selected={isItemSelected}
-                    sx={{ "&.MuiTableRow-root.Mui-selected": { bgcolor: "primary.secondarySectionContainer" } }}
+                    sx={{ "&.MuiTableRow-root.Mui-selected": { backgroundColor: "primary.secondarySectionContainer" } }}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox color="primary" checked={isItemSelected} inputProps={{ "aria-labelledby": labelId }} />
@@ -334,7 +334,7 @@ const OrganizationTable = () => {
                   <TableRow>
                     <TableCell colSpan={7} padding={"none"} sx={{ borderBottom: 0 }}>
                       <Collapse in={collapseContent[row._id]} timeout="auto" unmountOnExit>
-                        <TableContainer className={classess.middleMostTableContainer}>
+                        <TableContainer className={classes.middleMostTableContainer}>
                           <Table>
                             <TableBody>
                               <TableRow>

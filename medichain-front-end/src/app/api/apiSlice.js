@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ERROR } from "../../common/contants/notification";
+import { ERROR } from "../../common/constants/notification";
 import { logOut, logIn } from "../../features/auth/authSlice";
 import { setNotification } from "../../features/notifications/notificationSlice";
 

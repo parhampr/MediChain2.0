@@ -21,7 +21,7 @@ import { GET_ONLY } from "../app/constants/common/constants.js";
 import { enrollAdmin } from "../app/utils/userRegisterEnroll.js";
 
 // Options - Network, Status, Organization. If only want Network, if want network and status, if want all the three
-const getNetworkAndOrganization = async (params, definationType = GET_ONLY.ORGANIZATION, silentErrors = false) => {
+const getNetworkAndOrganization = async (params, definitionType = GET_ONLY.ORGANIZATION, silentErrors = false) => {
   const { netId, orgId, networkShouldRun } = params;
 
   let network, organization, status;
@@ -35,7 +35,7 @@ const getNetworkAndOrganization = async (params, definationType = GET_ONLY.ORGAN
       if (silentErrors) return {};
       throw errResponse(errors.not_found, `Network with networkId: ${netId} was not found`);
     }
-    if (definationType === GET_ONLY.NETWORK) return { foundNetwork: network };
+    if (definitionType === GET_ONLY.NETWORK) return { foundNetwork: network };
     status = isNetworkRunning(network.status);
     if (status !== networkShouldRun) {
       if (silentErrors) return { foundNetwork: network };
@@ -44,7 +44,7 @@ const getNetworkAndOrganization = async (params, definationType = GET_ONLY.ORGAN
         `To add alter organizations, please ${networkShouldRun ? "start" : "stop"} the network first`
       );
     }
-    if (definationType === GET_ONLY.STATUS) return { foundNetwork: network, isNetworkRunning: status };
+    if (definitionType === GET_ONLY.STATUS) return { foundNetwork: network, isNetworkRunning: status };
     if (!orgId) {
       if (silentErrors) return { foundNetwork: network, isNetworkRunning: status };
       throw errResponse(errors.not_found, "Required params : [orgId] is missing");
@@ -60,54 +60,6 @@ const getNetworkAndOrganization = async (params, definationType = GET_ONLY.ORGAN
     throw otherErrResponse(err);
   }
 };
-
-// const getNetworkAndOrganization = async (params, definationType = GET_ONLY.ORGANIZATION, silentErrors = false) => {
-//   const { netId, orgId, networkShouldRun } = params;
-
-//   if (!netId) throw errResponse(errors.not_found, "Required params : [netId] is missing");
-
-//   let network;
-//   try {
-//     network = await networkModel.findById(netId);
-//   } catch (err) {
-//     if (err?.name === "CastError") throw errResponse(errors.bad_input, `The netId is not valid or not correct`);
-//     throw otherErrResponse(err);
-//   }
-
-//   if (silentErrors && !network) return {};
-
-//   if (!network) throw errResponse(errors.not_found, `Network with networkId: ${netId} was not found`);
-
-//   let status;
-//   if (definationType !== GET_ONLY.NETWORK) {
-//     status = isNetworkRunning(network.status);
-//     if (status !== networkShouldRun)
-//       throw errResponse(
-//         errors.bad_request_orgs,
-//         `To add alter organizations, please ${networkShouldRun ? "start" : "stop"} the network first`
-//       );
-//   }
-
-//   if (definationType === GET_ONLY.NETWORK) return { foundNetwork: network };
-
-//   if (definationType === GET_ONLY.STATUS) return { foundNetwork: network, isNetworkRunning: status };
-
-//   if (!orgId) throw errResponse(errors.not_found, "Required params : [orgId] is missing");
-
-//   let organisation;
-//   try {
-//     organisation = await organizationModel.findById(orgId);
-//   } catch (err) {
-//     if (err?.name === "CastError") throw errResponse(errors.bad_input, `The netId/orgId is not valid or not correct`);
-//     throw otherErrResponse(err);
-//   }
-
-//   if (silentErrors && !organisation) return { foundNetwork: network, isNetworkRunning: status };
-
-//   if (!organisation) throw errResponse(errors.not_found, `Organization with orgId: ${orgId} was not found`);
-
-//   return { foundNetwork: network, isNetworkRunning: status, organisation };
-// };
 
 export const fetchWholeNetworkWithSuperAdmin = async (req, res) => {
   // ?id={}&filter={}

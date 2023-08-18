@@ -17,14 +17,16 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Children, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppThemeMode } from "../common/utils/stylesFunction";
 import { useLogoutMutation } from "../features/auth/authApiSlice";
-import { selectUserProps } from "../features/auth/authSlice";
+import { selectLoggedUserType, selectUserProps, setSelectedLoginType } from "../features/auth/authSlice";
 import { selectIsThemeDark } from "../features/theme/themeSlice";
 import logo from "../static/images/Logo.png";
 import logo_dark from "../static/images/Logo_dark.png";
+import { PUBLIC_ROUTES } from "../common/constants/routesConstants";
+import { ROLE } from "../common/constants/userProperties";
 
 const useStylesHeaderClass = makeStyles((theme) => ({
   appBarStyle: {
@@ -63,10 +65,18 @@ export const Header = ({ children }) => {
   const isDarkMode = useSelector(selectIsThemeDark);
   const userProps = useSelector(selectUserProps);
   const nav = useNavigate();
+  const dispatch = useDispatch();
   const components = children ? Children.toArray(children) : null;
   const [ref, setRef] = useState(null);
   const onSetRef = (e) => setRef(e.currentTarget);
   const [logout, { isLoading }] = useLogoutMutation();
+  const userType = useSelector(selectLoggedUserType);
+
+  const LogoutUser = async () => {
+    await logout();
+    dispatch(setSelectedLoginType(userType ?? ROLE.SUPER_ADMIN));
+    nav(PUBLIC_ROUTES.loginRoute);
+  };
 
   return (
     <AppBar className={classes.appBarStyle}>
@@ -125,7 +135,7 @@ export const Header = ({ children }) => {
                 right: 14,
                 width: 10,
                 height: 10,
-                bgcolor: "background.paper",
+                backgroundColor: "background.paper",
                 transform: "translateY(-50%) rotate(45deg)",
                 zIndex: 0,
               },
@@ -136,12 +146,14 @@ export const Header = ({ children }) => {
         >
           <MenuItem onClick={() => setRef(null)}>
             <Typography component="span" sx={{ fontSize: "13px", ml: 0.5 }}>
-              <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>Welcome, {userProps.welcomLabel}</Typography>
+              <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>
+                Welcome, {userProps.welcomeLabel}
+              </Typography>
             </Typography>
           </MenuItem>
           {components && components[1]}
           <Divider />
-          <MenuItem onClick={async () => await logout()} sx={{ textAlign: isLoading ? "center" : "start" }}>
+          <MenuItem onClick={LogoutUser} sx={{ textAlign: isLoading ? "center" : "start" }}>
             {isLoading ? (
               <ListItemText>
                 <CircularProgress size={22} />

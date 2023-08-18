@@ -37,7 +37,7 @@ import {
   tableButtons,
 } from "../../config/organizationsTableStructure";
 import { Fragment, memo, useCallback, useMemo, useState } from "react";
-import { networkDashboard } from "../../common/contants/routesConstants";
+import { SUPER_ADMIN_ROUTES } from "../../common/constants/routesConstants";
 import { visuallyHidden } from "@mui/utils";
 import {
   CreateOrganizationDialogForm,
@@ -45,7 +45,7 @@ import {
   EnrollOrganizationDialogForm,
 } from "./dialogContent/tableOrgForms";
 import { NetworkStatusLoading } from "../../common/utils/networkStatus";
-import { ERROR, INFO, SUCCESS } from "../../common/contants/notification";
+import { ERROR, INFO, SUCCESS } from "../../common/constants/notification";
 import { setNotification } from "../notifications/notificationSlice";
 
 function ButtonDialogBox({ buttonProps, ForwardComponent = () => {}, extraArgs = {} }) {
@@ -126,7 +126,7 @@ const MemoizedOrganizationTableToolBar = memo(({ selected, setSelected }) => {
         minHeight: "78px !important",
         borderRadius: "12px 12px 0 0",
         ...(numSelected > 0 && {
-          bgcolor: "primary.secondarySectionContainer",
+          backgroundColor: "primary.secondarySectionContainer",
         }),
       }}
     >
@@ -217,7 +217,7 @@ const MemoizedRow = memo(({ row, isItemSelected, handleSelectSingleClick, rowExp
         aria-checked={isItemSelected}
         tabIndex={-1}
         selected={isItemSelected}
-        sx={{ "&.MuiTableRow-root.Mui-selected": { bgcolor: "primary.secondarySectionContainer" } }}
+        sx={{ "&.MuiTableRow-root.Mui-selected": { backgroundColor: "primary.secondarySectionContainer" } }}
       >
         <TableCell padding="checkbox">
           <Checkbox
@@ -297,7 +297,7 @@ const MemoizedRow = memo(({ row, isItemSelected, handleSelectSingleClick, rowExp
 });
 
 function OrganizationTable({ page, rowsPerPage, dataRows }) {
-  const classess = useStylesOrganizationTableClass();
+  const classes = useStylesOrganizationTableClass();
 
   const [collapsed, setCollapsed] = useState(() => {
     const content = {};
@@ -370,7 +370,7 @@ function OrganizationTable({ page, rowsPerPage, dataRows }) {
   return (
     <>
       <MemoizedOrganizationTableToolBar selected={selected} setSelected={setSelected} />
-      <TableContainer className={classess.outermostTableContainer}>
+      <TableContainer className={classes.outermostTableContainer}>
         <Table sx={{ minWidth: 650 }} aria-labelledby="hospital organizations">
           <MemoizedOrganizationTableHead
             numSelected={selected.length}
@@ -458,7 +458,7 @@ export const OrganizationTableBoard = () => {
           severity={"error"}
           action={
             <Tooltip title={"Go to dashboard"}>
-              <Button color="error" variant="outlined" onClick={() => navigate(networkDashboard)}>
+              <Button color="error" variant="outlined" onClick={() => navigate(SUPER_ADMIN_ROUTES.networkDashboard)}>
                 <b>Dashboard</b>
               </Button>
             </Tooltip>

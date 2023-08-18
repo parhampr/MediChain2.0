@@ -56,11 +56,13 @@ export const designTheme = (mode) => ({
       ? {
           background: {
             default: "#F3F6FD",
+            secondary: "#FFF",
           },
         }
       : {
           background: {
             default: "#171923",
+            secondary: "#1a202c",
             // default: "#001E3C",
           },
         }),

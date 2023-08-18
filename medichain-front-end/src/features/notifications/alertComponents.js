@@ -1,7 +1,7 @@
 import { CheckCircle, Error, Info } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import { useStylesNotificationClassWithProps } from "../../classes/notifications/notificationClass";
-import { ERROR, INFO, SUCCESS } from "../../common/contants/notification";
+import { ERROR, INFO, SUCCESS } from "../../common/constants/notification";
 
 export const AlertIcon = ({ type, sx = {} }) => {
   const { iconStyle } = useStylesNotificationClassWithProps({ type });

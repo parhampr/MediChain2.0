@@ -1,5 +1,5 @@
 import { createEntityAdapter, createSlice, nanoid } from "@reduxjs/toolkit";
-import { INFO, MAXTIME } from "../../common/contants/notification";
+import { INFO, MAX_TIME } from "../../common/constants/notification";
 
 const notificationAdapter = createEntityAdapter();
 
@@ -11,7 +11,7 @@ const notificationSlice = createSlice({
       reducer(state, { payload }) {
         notificationAdapter.addOne(state, payload);
       },
-      prepare(title, description, type = INFO, maxTimer = MAXTIME) {
+      prepare(title, description, type = INFO, maxTimer = MAX_TIME) {
         return {
           payload: {
             id: nanoid(),

@@ -37,7 +37,7 @@ assert(generateConfigFileName, "Config file location is required");
 
 const app = express();
 
-// App Usuage
+// App Usage
 app.use(cors({ credentials: true, origin: "http://localhost:3001" }));
 app.use(json());
 app.use(cookieParser());
@@ -51,7 +51,7 @@ app.use(baseAuthRouteString, authRoutes);
 // Verify if user is authorized
 app.use(verifyJwtToken);
 
-// Verify if SuperAdmin is accessing these auths then go to
+// Verify if SuperAdmin is accessing these auth then go to
 // SuperAdmin Routes
 app.use(baseSAdminRouteString, checkForSuperAdminUser, sadminRoutes);
 

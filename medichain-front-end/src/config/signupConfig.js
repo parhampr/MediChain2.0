@@ -14,10 +14,10 @@ import {
   VisibilityOff,
 } from "@mui/icons-material";
 import { IconButton, InputAdornment, Tooltip, Typography } from "@mui/material";
-import { departmentSelectOptions, genderStatus, maritalStatus } from "../common/utils/formSelectoptions";
+import { departmentSelectOptions, genderStatus, maritalStatus } from "../common/utils/formSelectOptions";
 import CountryCity from "countrycitystatejson";
 import { subYears } from "date-fns";
-import { DOCTOR } from "../common/contants/userRoles";
+import { ROLE } from "../common/constants/userProperties";
 import { useGetEnrolledHospitalsQuery } from "../features/auth/authApiSlice";
 
 export const signUpFormConfig = (TYPE) => [
@@ -48,7 +48,7 @@ export const signUpFormConfig = (TYPE) => [
           label: "NRIC/Passport No. *",
           placeholder: "123456-78-GB02",
           helperText:
-            "Only digits and alphabets, including hypens for NRIC numbers, can be found in a legitimate NRIC/Passport number.",
+            "Only digits and alphabets, including hyphens for NRIC numbers, can be found in a legitimate NRIC/Passport number.",
           autoComplete: "username",
           InputProps: {
             startAdornment: (
@@ -140,7 +140,7 @@ export const signUpFormConfig = (TYPE) => [
       "DOB",
       "gender",
       "maritalStatus",
-      TYPE === DOCTOR ? "department" : null,
+      TYPE === ROLE.DOCTOR ? "department" : null,
     ],
     requiredFields: [
       "firstName",
@@ -149,7 +149,7 @@ export const signUpFormConfig = (TYPE) => [
       "DOB",
       "gender",
       "maritalStatus",
-      TYPE === DOCTOR ? "department" : null,
+      TYPE === ROLE.DOCTOR ? "department" : null,
     ],
     fields: [
       {
@@ -271,7 +271,7 @@ export const signUpFormConfig = (TYPE) => [
         textFieldProps: {
           name: "DOB",
           id: "DOB",
-          helperText: "Please enter your correct birthdate using the following format: DD/MM/YYYY.",
+          helperText: "Please enter your correct birth date using the following format: DD/MM/YYYY.",
           autoComplete: "bday",
         },
 
@@ -557,7 +557,7 @@ export const signUpFormConfig = (TYPE) => [
           label: "Postal Code *",
           placeholder: "11100",
 
-          helperText: "Please enrter a valid postal code of atleast 4-6 digits",
+          helperText: "Please enter a valid postal code of at least 4-6 digits",
           type: "number",
           autoComplete: "postal-code",
           InputProps: {
