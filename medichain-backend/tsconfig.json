@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2022",
+    "module": "es2022",
+    "rootDir": "./src",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "alwaysStrict": true,
+    "sourceMap": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "strictNullChecks": false,
+    "outDir": "./build",
+    "baseUrl": "./",
+    "paths": {
+      "@Config/*": ["src/app/configs/*"],
+      "@Constant/*": ["src/app/constants/*"],
+      "@Utilities/*": ["src/app/utilities/*"],
+      "@Controller/*": ["src/controllers/*"],
+      "@Middleware/*": ["src/middlewares/*"],
+      "@Route/*": ["src/routes/*"],
+      "@Model/*": ["src/models/*"],
+      "@Interfaces/*": ["src/interfaces/*"],
+      "@Error/*": ["src/errors/*"]
+    }
+  },
+  "include": ["src/**/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "build"],
+  "display": "Recommended"
+}

@@ -1,5 +1,5 @@
 import { Chip } from "@mui/material";
-import { getReadableDate } from "../common/utils/others";
+import { ShowHidePasswordCharacters, getReadableDate } from "../common/utils/others";
 import { CollapseExpandButton } from "../common/utils/stylesFunction";
 import { AddCircle } from "@mui/icons-material";
 
@@ -51,7 +51,7 @@ export const headCellsIdentities = [
     align: "center",
     disablePadding: false,
     label: "ADMIN PASSWORD",
-    renderContent: (data) => data,
+    renderContent: (data) => <ShowHidePasswordCharacters data={data} />,
   },
   {
     id: "createdAt",
@@ -171,6 +171,7 @@ export const tableButtons = {
     render: "Delete",
   },
 };
+
 export const activeLoadingButtonProps = (statusCode, orgLen, loadStart, loadStop) => {
   let color,
     loading = statusCode === 300 || loadStart || loadStop,

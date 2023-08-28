@@ -1,6 +1,6 @@
 ## Pre-requisites
 
-Before begining, developers should confirm that they have installed all the prerequisites below on the platform where HLF framework will run
+Before beginning, developers should confirm that they have installed all the prerequisites below on the platform where HLF framework will run
 
 - [Install Git](https://git-scm.com/downloads)
 - [Install cURL](https://curl.se/download.html)
@@ -14,7 +14,7 @@ Run the following command to install docker binaries and images.
 
 `curl -sSL https://bit.ly/2ysbOFE | bash -s -- 2.2.0 1.5.2`
 
-Following binaries should be installed and stored inside medichain-back-end folder (within bin folder)
+Following binaries should be installed and stored inside medichain-backend folder (within bin folder)
 
 - configtxgen,
 - configtxlator,
@@ -28,7 +28,7 @@ Following binaries should be installed and stored inside medichain-back-end fold
 
 Specify the bin folder path in global variable
 
-`export PATH=<path to folder location>/medichain-back-end/bin:$PATH`
+`export PATH=<path to folder location>/medichain-backend/bin:$PATH`
 
 ## Conclusion
 

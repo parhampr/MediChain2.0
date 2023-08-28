@@ -13,4 +13,4 @@ package='concurrently'
 if [ `npm list -g | grep -c $package` -eq 0 ]; then
     npm install -g $package
 fi
-concurrently "npm run start --prefix medichain-front-end" "npm run start-server --prefix medichain-back-end"
+concurrently "npm run start --prefix medichain-front-end" "npm run start-server --prefix medichain-backend"
